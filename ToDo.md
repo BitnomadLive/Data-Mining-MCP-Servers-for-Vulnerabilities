@@ -4,14 +4,14 @@ The goal is to download MCP github repositories and data mine them for vulnerabi
 - [ ] Write Script to download repos
 - [ ] cluster README.mds to get a general overview of what the servers do
 - [ ] Simple analysis of repos
-        - [ ] Amount of files per repo -> show distribution
-        - [ ] Dominant Laguage per REpository
-        - [ ] Number of Commits
-        - [ ] Number of branches
-        - [ ] Overall File Type Count & Percentage
-        - [ ] ? Lines of code per Repo ? -> Distribution
-        - [ ] ? Most used dependencies -> any vulnerable ?
-        - [ ] count of repos with outdated Dpendencies
+    - [ ] Amount of files per repo -> show distribution
+    - [ ] Dominant Laguage per REpository
+    - [ ] Number of Commits
+    - [ ] Number of branches
+    - [ ] Overall File Type Count & Percentage
+    - [ ] ? Lines of code per Repo ? -> Distribution
+    - [ ] ? Most used dependencies -> any vulnerable ?
+    - [ ] count of repos with outdated Dpendencies
 - [ ] Run openrep against each repo
 - [ ] Statistics of opengrep output: e.g Count type per finding
 - [ ] run truffelhog against repos to find secrets/keys
