@@ -130,6 +130,7 @@ Before starting to hunt for vulnerabilities lets get a overview of our dataset.
 Lets start of by getting some simple statistics:
 
 TODO
+Total Number of repos: 3795
 
 
 To achieve that first all README.md files will be converted to vectors and afterward will be clustered with the DBSCAN algorithm. Additionally we will output the number of clusters and the amount of repos in each cluster. The similarity between the README files is calculated using cosine similarity by creating a similarity matrix, where each row and column entry hold the value of the similarity between two README files. That similarity matrix is converted into a csv file (output_cytoscape.csv) and written to disc. Moreover all README files that did not fit any cluster are also writen to disc into a file called output_with_unclustered.csv 
