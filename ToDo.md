@@ -1,8 +1,8 @@
 # Research Plan
 The goal is to download MCP github repositories and data mine them for vulnerabilites 
 
-- [ ] Write Script to download repos
-- [ ] cluster README.mds to get a general overview of what the servers do
+- [X] Write Script to download repos
+- [X] cluster README.mds to get a general overview of what the servers do
 - [ ] Simple analysis of repos
     - [ ] Amount of files per repo -> show distribution
     - [ ] Dominant Laguage per REpository
