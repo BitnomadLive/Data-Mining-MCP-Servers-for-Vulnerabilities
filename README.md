@@ -239,7 +239,9 @@ if __name__ == "__main__":
 ```
 
 Explain eps parameter of DBSCAN
+
 dbscan = DBSCAN(metric="cosine", eps=0.49, min_samples=2)
+
 Clusters  / eps:
 
 
