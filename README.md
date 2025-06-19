@@ -397,9 +397,7 @@ if __name__ == "__main__":
     main()
 ```
 
-Explain eps parameter of DBSCAN
-
-dbscan = DBSCAN(metric="cosine", eps=0.49, min_samples=2)
+Multiple eps values were tried to get the most amount of clusters:
 
 | Clusters | eps |
 | --- | --- |
@@ -412,5 +410,10 @@ dbscan = DBSCAN(metric="cosine", eps=0.49, min_samples=2)
 | 378 | 0.55 |
 | 302 | 0.6 |
 
+To visualize the the output cytoscape was used
+
+1.  Open cytoscape -> Import -> Network from file -> select output_cytoscape.csv
+
+2. change source descriptio and target description to be source node attributes or target node attributes
 
 
