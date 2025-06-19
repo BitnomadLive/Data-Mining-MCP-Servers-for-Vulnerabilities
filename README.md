@@ -153,6 +153,18 @@ find "$base_dir" -type f | awk -F. '
 ```
 output in https://github.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/blob/main/Code/statistics/overall_file_type_count_and_precentage_output.txt
 
+| file extension | count |
+| --- | ---|
+| ts | 54774 (14.67%) |
+| sample | 53148 (14.23%) |
+| js | 52284 (14.00%) |
+| py | 24883 (6.66%) |
+| json | 23247 (6.23%) |
+| md | 22260 (5.96%) |
+| map | 14365 (3.85%) |
+| go | 6733 (1.80%) |
+| pyc | 4559 (1.22%) |
+| gitignore | 3937 (1.05%) |
 
 run 
 count_files_per_repo.sh > count_files_per_repo_output.txt
