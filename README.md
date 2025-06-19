@@ -182,6 +182,7 @@ rm "$temp_file"
 ```
 
 Generate image of the distribution of file counts across repositories
+
 python 3 generate_distribution_image.py
 
 ![alt text](https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/statistics/file_distribution_bar_chart_no_bins.png "Distribution of File Counts across Repositories")
