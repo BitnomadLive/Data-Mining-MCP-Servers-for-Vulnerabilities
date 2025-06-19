@@ -129,8 +129,60 @@ if __name__ == "__main__":
 Before starting to hunt for vulnerabilities lets get a overview of our dataset.
 Lets start of by getting some simple statistics:
 
-TODO
 Total Number of repos: 3795
+
+run 
+overall_file_type_count_and_percentage.sh
+```bash
+#!/bin/bash
+
+# Directory containing the cloned repositories
+base_dir="/media/sf_MCP/cloned_repos"
+
+# Find all files and extract extensions
+find "$base_dir" -type f | awk -F. '
+  NF>1 {ext[$NF]++; total++} # Increment count for each file extension and total
+  END {
+    for (e in ext) {
+      printf "%.2f %s\n", (ext[e]/total)*100, e # Print percentage first for sorting
+    }
+  }
+' | sort -nr | awk '
+  {printf "%s: %.2f%%\n", $2, $1} # Reformat the output
+'
+```
+output in https://github.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/blob/main/Code/statistics/overall_file_type_count_and_precentage_output.txt
+
+
+run 
+count_files_per_repo.sh > count_files_per_repo_output.txt
+```bash
+#!/bin/bash
+
+# Directory containing the cloned repositories
+base_dir="/media/sf_MCP/cloned_repos"
+
+# Temporary file to store the intermediate results
+temp_file=$(mktemp)
+
+# Loop through each repository
+for repo in "$base_dir"/*; do
+  if [ -d "$repo" ]; then
+    repo_name=$(basename "$repo")
+    file_count=$(find "$repo" -type f | wc -l)
+    echo "$file_count $repo_name" >> "$temp_file"
+  fi
+done
+
+# Sort the results in descending order and display them
+sort -nr "$temp_file"
+
+# Clean up the temporary file
+rm "$temp_file"
+```
+
+Generate image of the distribution of file counts across repositories
+python 3 generate_distribution_image.py
 
 ![alt text](https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/statistics/file_distribution_bar_chart_no_bins.png "Distribution of File Counts across Repositories")
 
