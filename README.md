@@ -286,6 +286,7 @@ python 3 generate_distribution_image.py
 
 ![alt text](https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/statistics/file_distribution_bar_chart_no_bins.png "Distribution of File Counts across Repositories")
 
+Todo: EXPLAIN IMAGE
 
 To achieve that first all README.md files will be converted to vectors and afterward will be clustered with the DBSCAN algorithm. 
 DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a clustering algorithm that groups data points based on density. It identifies clusters as regions of high point density separated by areas of low density. The algorithm requires two key parameters: eps (the maximum distance between two points to be considered neighbors) and minPts (the minimum number of points required to form a dense region). DBSCAN classifies points as core points (dense region centers), border points (on the edge of clusters), or noise points (outliers). It is particularly effective for discovering clusters of arbitrary shapes and handling noise.
