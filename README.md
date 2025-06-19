@@ -410,10 +410,16 @@ Multiple eps values were tried to get the most amount of clusters:
 | 378 | 0.55 |
 | 302 | 0.6 |
 
+Talk about cluster amount and results. show biggest 10 clusters
+
+
 To visualize the the output cytoscape was used
 
 1.  Open cytoscape -> Import -> Network from file -> select output_cytoscape.csv
+2. change source descriptio and target description to be source node attributes or target node attributes (picture)
+3.  Click ok to import
+4. Layout  -> Edge weighted Spring Embedded Layout -> Similarity
 
-2. change source descriptio and target description to be source node attributes or target node attributes
-
+   picture of clusters. look into interactive version with cytoscape.js
+   
 
