@@ -20,7 +20,7 @@ def read_readme_files(folder_path):
 # Main script
 def main():
     # Folder containing GitHub repositories
-    folder_path = "/media/sf_MCP/cloned_repos"  
+    folder_path = "/media/sf_MCP/cloned_repos"  # Updated path
 
     # Step 1: Read README.md files
     repo_readmes = read_readme_files(folder_path)
@@ -73,8 +73,8 @@ def main():
 
     for cluster_label, repos in clusters.items():
         print(f"\nCluster {cluster_label}: {len(repos)} repositories")
-        print("  Example repositories:")
-        for repo in repos[:5]:  # Print up to 5 repositories per cluster
+        print("  Repositories:")
+        for repo in repos:
             print(f"    {repo}")
 
     # Step 7: Print unclustered repositories

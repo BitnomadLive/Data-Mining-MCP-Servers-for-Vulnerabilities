@@ -289,10 +289,13 @@ python 3 generate_distribution_image.py
 
 Todo: EXPLAIN IMAGE
 
-To achieve that first all README.md files will be converted to vectors and afterward will be clustered with the DBSCAN algorithm. 
-DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a clustering algorithm that groups data points based on density. It identifies clusters as regions of high point density separated by areas of low density. The algorithm requires two key parameters: eps (the maximum distance between two points to be considered neighbors) and minPts (the minimum number of points required to form a dense region). DBSCAN classifies points as core points (dense region centers), border points (on the edge of clusters), or noise points (outliers). It is particularly effective for discovering clusters of arbitrary shapes and handling noise.
 
+After getting some statistics it might be interesting to see if there are MCP servers that try to achieve similar things. 
+To investigate that first all README.md files will be converted to vectors and afterward will be clustered with the DBSCAN algorithm. 
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a clustering algorithm that groups data points based on density. It identifies clusters as regions of high point density separated by areas of low density. The algorithm requires two key parameters: eps (the maximum distance between two points to be considered neighbors) and minPts (the minimum number of points required to form a dense region). DBSCAN classifies points as core points (dense region centers), border points (on the edge of clusters), or noise points (outliers). It is particularly effective for discovering clusters of arbitrary shapes and handling noise.
 Additionally we will output the number of clusters and the amount of repos in each cluster. The similarity between the README files is calculated using cosine similarity by creating a similarity matrix, where each row and column entry hold the value of the similarity between two README files. That similarity matrix is converted into a csv file (output_cytoscape.csv) and written to disc. Moreover all README files that did not fit any cluster are also writen to disc into a file called output_with_unclustered.csv 
+
+python3 README_clustering.py
 
 ```python
 import os
@@ -370,8 +373,8 @@ def main():
 
     for cluster_label, repos in clusters.items():
         print(f"\nCluster {cluster_label}: {len(repos)} repositories")
-        print("  Example repositories:")
-        for repo in repos[:5]:  # Print up to 5 repositories per cluster
+        print("  Repositories:")
+        for repo in repos:
             print(f"    {repo}")
 
     # Step 7: Print unclustered repositories
@@ -396,22 +399,28 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 ```
 
 Multiple eps values were tried to get the most amount of clusters:
 
 | Clusters | eps |
 | --- | --- |
-| 375 |	0.4 |
-| 418 | 0.45 |
-| 422 | 0.47 |
-| 427 | 0.49 |
+| 376 |	0.4 |
+| 419 | 0.45 |
+| 423 | 0.47 |
+| 428 | 0.49 |
 | 425 | 0.5 |
-| 409 | 0.52 |
-| 378 | 0.55 |
-| 302 | 0.6 |
+| 410 | 0.52 |
+| 379 | 0.55 |
+| 303 | 0.6 |
 
 Talk about cluster amount and results. show biggest 10 clusters
+
+
+428 cluster
+
+
 
 
 To visualize the the output cytoscape was used
@@ -424,3 +433,102 @@ To visualize the the output cytoscape was used
    picture of clusters. look into interactive version with cytoscape.js
    
 
+
+Run opengrep on all repos:
+```python
+import os
+import subprocess
+import json
+import shutil
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import signal
+import sys
+
+# Paths
+OUTPUT_FOLDER = "output"
+REPO_FOLDER = "/media/sf_MCP/cloned_repos"  # Folder containing all pre-downloaded repositories
+PROGRESS_FILE = "progress.json"
+OPENGREP_BINARY = "/home/vboxuser/opengrep/opengrep_manylinux_x86"
+OPENGREP_RULES = "/home/vboxuser/opengrep/opengrep-rules"
+
+# Ensure output folder exists
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+# Track processed repositories
+processed_repos = set()
+
+def load_progress():
+    """Load progress from the progress file."""
+    if os.path.exists(PROGRESS_FILE):
+        with open(PROGRESS_FILE, "r") as f:
+            return set(json.load(f))
+    return set()
+
+def save_progress():
+    """Save progress to the progress file."""
+    with open(PROGRESS_FILE, "w") as f:
+        json.dump(list(processed_repos), f)
+
+def signal_handler(sig, frame):
+    """Handle interruption signals (e.g., Ctrl+C)."""
+    print("\nPausing... Saving progress.")
+    save_progress()
+    sys.exit(0)
+
+# Register the signal handler
+signal.signal(signal.SIGINT, signal_handler)
+
+def run_opengrep_on_batch(batch, batch_index):
+    """Run opengrep on a batch of repositories."""
+    output_file = os.path.join(OUTPUT_FOLDER, f"batch_{batch_index}.json")
+    print(f"Running opengrep on batch {batch_index}...")
+    subprocess.run([
+        OPENGREP_BINARY,
+        "scan",
+        f"--sarif-output={output_file}",
+        "-f", OPENGREP_RULES,
+        *batch
+    ], check=True)
+
+def batch_repositories(repos, batch_size):
+    """Yield successive batches of repositories."""
+    for i in range(0, len(repos), batch_size):
+        yield repos[i:i + batch_size]
+
+# Load progress
+processed_repos = load_progress()
+
+# Get list of all repositories in the local folder
+all_repos = [os.path.join(REPO_FOLDER, repo) for repo in os.listdir(REPO_FOLDER) if os.path.isdir(os.path.join(REPO_FOLDER, repo))]
+
+# Filter out already processed repositories
+remaining_repos = [repo for repo in all_repos if repo not in processed_repos]
+
+BATCH_SIZE = 40
+
+# Process remaining repositories in batches
+for batch_index, batch in enumerate(batch_repositories(remaining_repos, BATCH_SIZE), start=1):
+    process_batch = False
+
+    # Skip batches that are already processed
+    for repo in batch:
+        if repo not in processed_repos:
+            process_batch = True
+            break
+
+    if not process_batch:
+        print(f"Skipping already processed batch {batch_index}")
+        continue
+
+    try:
+        run_opengrep_on_batch(batch, batch_index)
+        processed_repos.update(batch)
+        save_progress()
+    except subprocess.CalledProcessError as e:
+        print(f"Error running opengrep on batch {batch_index}: {e}")
+
+print("All repositories processed.")
+if os.path.exists(PROGRESS_FILE):
+    os.remove(PROGRESS_FILE)
+```
