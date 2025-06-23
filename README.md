@@ -426,13 +426,14 @@ Talk about cluster amount and results. show biggest 10 clusters
 To visualize the the output cytoscape was used
 
 1.  Open cytoscape -> Import -> Network from file -> select output_cytoscape.csv
-2. change source descriptio and target description to be source node attributes or target node attributes (picture)
-3.  Click ok to import
-4. Layout  -> Edge weighted Spring Embedded Layout -> Similarity
+2. change source descriptio and target description to be source node attributes or target node attributes
+![alt text](https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/README_clustering/cytoscape_settings.png "Cytoscape Import Settings")
 
+4.  Click ok to import
+5. Layout  -> Edge weighted Spring Embedded Layout -> Similarity
+![alt text](https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/README_clustering/cytoscape_cluster.png "Cytoscape Clusters")
    picture of clusters. look into interactive version with cytoscape.js
    
-
 
 Run opengrep on all repos:
 ```python
