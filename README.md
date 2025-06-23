@@ -192,7 +192,7 @@ sort -nr "$temp_file"
 # Clean up the temporary file
 rm "$temp_file"
 ```
-
+Output in https://raw.githubusercontent.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/refs/heads/main/Code/statistics/count_files_per_repo_output.txt
 Generate image of the distribution of file counts across repositories
 ```python
 import matplotlib.pyplot as plt
