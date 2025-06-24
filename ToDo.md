@@ -5,11 +5,11 @@ The goal is to download MCP github repositories and data mine them for vulnerabi
 - [X] cluster README.mds to get a general overview of what the servers do
 - [ ] Simple analysis of repos
     - [X] Amount of files per repo 
-    - [ ] -> show distribution
+    - [X] -> show distribution
     - [ ] Dominant Laguage per REpository
     - [ ] -> file types programing languages: https://gist.github.com/ppisarczyk/43962d06686722d26d176fad46879d41
-    - [ ] Number of Commits
-    - [ ] Number of branches
+    - [X] Number of Commits
+    - [X] Number of branches
     - [X] Overall File Type Count & Percentage
     - [ ] -> visualize it
     - [ ] ? Lines of code per Repo ? -> Distribution
