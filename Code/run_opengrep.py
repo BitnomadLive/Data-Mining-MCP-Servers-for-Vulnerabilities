@@ -8,7 +8,7 @@ import signal
 import sys
 
 # Paths
-OUTPUT_FOLDER = "output"
+OUTPUT_FOLDER = "opengrep_output"
 REPO_FOLDER = "/media/sf_MCP/cloned_repos"  # Folder containing all pre-downloaded repositories
 PROGRESS_FILE = "progress.json"
 OPENGREP_BINARY = "/home/vboxuser/opengrep/opengrep_manylinux_x86"
