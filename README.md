@@ -560,34 +560,34 @@ if __name__ == "__main__":
     main()
 ```
 
-Results
-
-/media/sf_MCP/cloned_repos/mindsdb                 19406           268            
-/media/sf_MCP/cloned_repos/prisma                  11560           446            
-/media/sf_MCP/cloned_repos/grafbase                7448            9              
-/media/sf_MCP/cloned_repos/repomix                 1554            18             
-/media/sf_MCP/cloned_repos/tianji                  1383            14             
-/media/sf_MCP/cloned_repos/solana-agent-kit        1352            6              
-/media/sf_MCP/cloned_repos/lingo.dev               1131            25             
-/media/sf_MCP/cloned_repos/supermemory             1035            44             
-/media/sf_MCP/cloned_repos/memory-bank-mcp-server  925             36             
-/media/sf_MCP/cloned_repos/mcp-local-dev           757             2              
-/media/sf_MCP/cloned_repos/basic-memory            736             5              
-/media/sf_MCP/cloned_repos/unity-mcp               672             5              
-/media/sf_MCP/cloned_repos/devdb-vscode            663             4              
-/media/sf_MCP/cloned_repos/serena                  611             34             
-/media/sf_MCP/cloned_repos/flux-operator           574             5              
-/media/sf_MCP/cloned_repos/atlas-mcp-server        573             2              
-/media/sf_MCP/cloned_repos/mcp-server-atlassian-bitbucket 530             4              
-/media/sf_MCP/cloned_repos/genai-toolbox           494             50             
-/media/sf_MCP/cloned_repos/llm-context.py          483             2              
-/media/sf_MCP/cloned_repos/sentry-mcp              471             79             
-/media/sf_MCP/cloned_repos/gateway                 470             14             
-/media/sf_MCP/cloned_repos/generator               461             5              
-/media/sf_MCP/cloned_repos/mongodb-lens            448             4              
-/media/sf_MCP/cloned_repos/teamretro-mcp-server    426             13             
-/media/sf_MCP/cloned_repos/codebase-mcp            420             2              
-/media/sf_MCP/cloned_repos/sourcebot               406             42     
+| Repo | Commits | Branches |
+| --- | --- | --- |
+| /media/sf_MCP/cloned_repos/mindsdb | 19406 | 268 |           
+| /media/sf_MCP/cloned_repos/prisma | 11560 | 446 |           
+| /media/sf_MCP/cloned_repos/grafbase | 7448 | 9 |             
+| /media/sf_MCP/cloned_repos/repomix | 1554 | 18 |            
+| /media/sf_MCP/cloned_repos/tianji | 1383 | 14 |            
+| /media/sf_MCP/cloned_repos/solana-agent-kit | 1352 | 6 |             
+| /media/sf_MCP/cloned_repos/lingo.dev | 1131 | 25 |            
+| /media/sf_MCP/cloned_repos/supermemory | 1035 | 44 |            
+| /media/sf_MCP/cloned_repos/memory-bank-mcp-server | 925 | 36 |            
+| /media/sf_MCP/cloned_repos/mcp-local-dev | 757 | 2 |             
+| /media/sf_MCP/cloned_repos/basic-memory | 736 | 5 |             
+| /media/sf_MCP/cloned_repos/unity-mcp | 672 | 5 |             
+| /media/sf_MCP/cloned_repos/devdb-vscode | 663 | 4 |             
+| /media/sf_MCP/cloned_repos/serena | 611 | 34 |            
+| /media/sf_MCP/cloned_repos/flux-operator | 574 | 5 |             
+| /media/sf_MCP/cloned_repos/atlas-mcp-server | 573 | 2 |             
+| /media/sf_MCP/cloned_repos/mcp-server-atlassian-bitbucket | 530 | 4 |             
+| /media/sf_MCP/cloned_repos/genai-toolbox | 494 | 50 |            
+| /media/sf_MCP/cloned_repos/llm-context.py | 483 | 2 |             
+| /media/sf_MCP/cloned_repos/sentry-mcp | 471 | 79 |            
+| /media/sf_MCP/cloned_repos/gateway | 470 | 14 |            
+| /media/sf_MCP/cloned_repos/generator | 461 | 5 |             
+| /media/sf_MCP/cloned_repos/mongodb-lens | 448 | 4 |             
+| /media/sf_MCP/cloned_repos/teamretro-mcp-server | 426 | 13 |             
+| /media/sf_MCP/cloned_repos/codebase-mcp | 420 | 2 |             
+| /media/sf_MCP/cloned_repos/sourcebot | 406 | 42 |    
 
 
 
