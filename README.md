@@ -893,7 +893,7 @@ for rule, details in sorted_rules:
     print("-" * 50)
 ```
 
-Output can be found here: 
+Output can be found here: https://github.com/BitnomadLive/Data-Mining-MCP-Servers-for-Vulnerabilities/blob/main/Code/opengrep_analysis/opengrep_analysis_output.txt
 Top 10
 ```
 Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-fs-filename
