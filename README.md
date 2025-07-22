@@ -435,7 +435,7 @@ To visualize the the output cytoscape was used
    picture of clusters. look into interactive version with cytoscape.js
 
 
-Branches Commit Analysis
+Run Branches and Commit Analysis to find out most active repos:
 
 ```python
 import os
@@ -676,10 +676,62 @@ if __name__ == "__main__":
 
 ```
 
-Run analysis in results:
-ToDo: Analysis results
+Run analysis on trufflehog results:
+```python
+import os
+import json
 
--> no verified credentials 
+# Path to the folder containing GitHub repositories
+base_path = "/media/sf_MCP/cloned_repos"
+
+# List to store file paths with at least one "Verified": true result
+verified_files = []
+
+# Traverse the folder structure
+for root, dirs, files in os.walk(base_path):
+    for file in files:
+        if file == "trufflehog_results.json":
+            file_path = os.path.join(root, file)
+
+            print("Currently working on: " + str(file_path))
+
+            # Skip empty files
+            if os.path.getsize(file_path) == 0:
+                continue
+
+            # Read and process the JSON file
+            with open(file_path, "r") as f:
+                try:
+                    verified_found = False
+                    for line in f:
+                        data = json.loads(line)
+                        if data.get("Verified") == True:
+                            verified_found = True
+                            break  # No need to check further lines in this file
+                    if verified_found:
+                        verified_files.append(file_path)
+                except json.JSONDecodeError:
+                    print(f"Error decoding JSON in file: {file_path}")
+
+# Print the files with at least one "Verified: true" result
+print("Files with at least one 'Verified: true' result:")
+for verified_file in verified_files:
+    print(verified_file)
+
+# Print statistics
+total_files = len(verified_files)
+print(f"\nTotal non-empty files with 'Verified: true' results: {total_files}")
+
+```
+
+Result:
+Files with at least one 'Verified: true' result:
+/media/sf_MCP/cloned_repos/base-mcp-server/trufflehog_results.json
+/media/sf_MCP/cloned_repos/mcp-nodejs-debugger/trufflehog_results.json
+/media/sf_MCP/cloned_repos/mcp-server-neon/trufflehog_results.json
+/media/sf_MCP/cloned_repos/mindsdb/trufflehog_results.json
+
+Check again later. On the first look none of them are really usable. Seem to be postgres and mongodb instances
 
 
 
@@ -780,4 +832,107 @@ for batch_index, batch in enumerate(batch_repositories(remaining_repos, BATCH_SI
 print("All repositories processed.")
 if os.path.exists(PROGRESS_FILE):
     os.remove(PROGRESS_FILE)
+```
+Run opengrep result analysis:
+```python
+import json
+import os
+from collections import Counter
+
+# Path to the folder containing the result files
+folder_path = "output"
+
+# Initialize a dictionary to store rule details (name, text, and count)
+rule_details = {}
+
+# Process all JSON files in the folder
+try:
+    for file_name in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file_name)
+        
+        # Only process files with a .json extension
+        if file_name.endswith(".json"):
+            try:
+                with open(file_path, "r") as file:
+                    data = json.load(file)
+
+                # Traverse the JSON structure to count rule names containing "security"
+                runs = data.get("runs", [])
+                for run in runs:
+                    results = run.get("results", [])
+                    for result in results:
+                        rule_id = result.get("ruleId", "Unknown Rule")
+                        rule_text = result.get("message", {}).get("text", "No description provided.")
+                        
+                        # Only consider rule names containing "security"
+                        if "security" in rule_id.lower():
+                            if rule_id not in rule_details:
+                                rule_details[rule_id] = {"text": rule_text, "count": 0}
+                            rule_details[rule_id]["count"] += 1
+
+            except json.JSONDecodeError:
+                print(f"Error: File '{file_name}' is not a valid JSON file. Skipping.")
+            except Exception as e:
+                print(f"Error while processing file '{file_name}': {e}")
+except FileNotFoundError:
+    print(f"Error: Folder '{folder_path}' not found.")
+    exit(1)
+except Exception as e:
+    print(f"Error while accessing the folder: {e}")
+    exit(1)
+
+# Sort the rules by count in descending order
+sorted_rules = sorted(rule_details.items(), key=lambda x: x[1]["count"], reverse=True)
+
+# Print the rule names, counts, and their text descriptions
+print("Rule Name Counts and Descriptions (Containing 'security', Descending):")
+for rule, details in sorted_rules:
+    print(f"Rule ID: {rule}")
+    print(f"Count: {details['count']}")
+    print(f"Description: {details['text']}")
+    print("-" * 50)
+```
+
+Output can be found here: 
+Top 10
+```
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-fs-filename
+Count: 4173
+Description: Detected that function argument `category` has entered the fs module. An attacker could potentially control the location of this file, to include going backwards in the directory with '../'. To address this, ensure that user-controlled variables in file paths are validated.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.path-traversal.path-join-resolve-traversal
+Count: 2828
+Description: Detected possible user input going into a `path.join` or `path.resolve` function. This could possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files stored in the file system. Instead, be sure to sanitize or validate user input first.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.unsafe-formatstring
+Count: 2382
+Description: Detected string concatenation with a non-literal variable in a util.format / console.log function. If an attacker injects a format specifier in the string, it will forge the log message. Try to use constant values for the format string.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.missing-user
+Count: 901
+Description: By not specifying a USER, a program in the container may run as 'root'. This is a security hazard. If an attacker can control a process running as root, they may have control over the container. Ensure that the last USER in a Dockerfile is a USER other than 'root'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-subprocess-use-audit
+Count: 886
+Description: Detected subprocess function 'run' without a static string. If this data can be controlled by a malicious actor, it may be an instance of command injection. Audit the use of this call to ensure it is not controllable by an external resource. You may consider using 'shlex.escape()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.missing-user-entrypoint
+Count: 577
+Description: By not specifying a USER, a program in the container may run as 'root'. This is a security hazard. If an attacker can control a process running as root, they may have control over the container. Ensure that the last USER in a Dockerfile is a USER other than 'root'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.html-in-template-string
+Count: 522
+Description: This template literal looks like HTML and has interpolated variables. These variables are not HTML-encoded by default. If the variables contain HTML tags, these may be interpreted by the browser, resulting in cross-site scripting (XSS).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-regexp
+Count: 293
+Description: RegExp() called with a `op` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.sqlalchemy.security.sqlalchemy-execute-raw-query
+Count: 265
+Description: Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.unsafe-dynamic-method
+Count: 254
+Description: Using non-static data to retrieve and run functions from the object is dangerous. If the data is user-controlled, it may allow executing arbitrary code.
 ```

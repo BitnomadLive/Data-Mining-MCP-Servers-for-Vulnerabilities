@@ -1,0 +1,980 @@
+Rule Name Counts and Descriptions (Containing 'security', Descending):
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-fs-filename
+Count: 4173
+Description: Detected that function argument `category` has entered the fs module. An attacker could potentially control the location of this file, to include going backwards in the directory with '../'. To address this, ensure that user-controlled variables in file paths are validated.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.path-traversal.path-join-resolve-traversal
+Count: 2828
+Description: Detected possible user input going into a `path.join` or `path.resolve` function. This could possibly lead to a path traversal vulnerability,  where the attacker can access arbitrary files stored in the file system. Instead, be sure to sanitize or validate user input first.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.unsafe-formatstring
+Count: 2382
+Description: Detected string concatenation with a non-literal variable in a util.format / console.log function. If an attacker injects a format specifier in the string, it will forge the log message. Try to use constant values for the format string.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.missing-user
+Count: 901
+Description: By not specifying a USER, a program in the container may run as 'root'. This is a security hazard. If an attacker can control a process running as root, they may have control over the container. Ensure that the last USER in a Dockerfile is a USER other than 'root'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-subprocess-use-audit
+Count: 886
+Description: Detected subprocess function 'run' without a static string. If this data can be controlled by a malicious actor, it may be an instance of command injection. Audit the use of this call to ensure it is not controllable by an external resource. You may consider using 'shlex.escape()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.missing-user-entrypoint
+Count: 577
+Description: By not specifying a USER, a program in the container may run as 'root'. This is a security hazard. If an attacker can control a process running as root, they may have control over the container. Ensure that the last USER in a Dockerfile is a USER other than 'root'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.html-in-template-string
+Count: 522
+Description: This template literal looks like HTML and has interpolated variables. These variables are not HTML-encoded by default. If the variables contain HTML tags, these may be interpreted by the browser, resulting in cross-site scripting (XSS).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-regexp
+Count: 293
+Description: RegExp() called with a `op` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.sqlalchemy.security.sqlalchemy-execute-raw-query
+Count: 265
+Description: Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL Injection. In order to execute raw query safely, prepared statement should be used. SQLAlchemy provides TextualSQL to easily used prepared statement with named parameters. For complex SQL composition, use SQL Expression Language or Schema Definition Language. In most cases, SQLAlchemy ORM will be a better option.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.unsafe-dynamic-method
+Count: 254
+Description: Using non-static data to retrieve and run functions from the object is dangerous. If the data is user-controlled, it may allow executing arbitrary code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.html.security.audit.missing-integrity
+Count: 237
+Description: This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you’re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.detect-child-process
+Count: 235
+Description: Detected calls to child_process from a function argument `url`. This could lead to a command injection if the input is user controllable. Try to avoid calls to child_process, and if it is needed ensure user input is correctly sanitized or sandboxed. 
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.formatted-sql-query
+Count: 219
+Description: Detected possible formatted SQL query. Use parameterized queries instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.deserialization.avoid-pickle
+Count: 219
+Description: Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.docker-compose.security.no-new-privileges
+Count: 139
+Description: Service 'neo4j' allows for privilege escalation via setuid or setgid binaries. Add 'no-new-privileges:true' in 'security_opt' to prevent this.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.docker-compose.security.writable-filesystem-service
+Count: 139
+Description: Service 'neo4j' is running with a writable root filesystem. This may allow malicious applications to download and run additional payloads, or modify container files. If an application inside a container has to save something temporarily consider using a tmpfs. Add 'read_only: true' to this service to prevent this.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.insecure-document-method
+Count: 133
+Description: User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.jquery.security.audit.prohibit-jquery-html
+Count: 133
+Description: JQuery's `html` function is susceptible to Cross Site Scripting (XSS) attacks. If you're just passing text, consider `text` instead. Otherwise, use a function that escapes HTML such as edX's `HtmlUtils.setHtml()`.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.insecure-innerhtml
+Count: 132
+Description: User controlled data in a `element.innerHTML` is an anti-pattern that can lead to XSS vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.subprocess-shell-true
+Count: 123
+Description: Found 'subprocess' function 'Popen' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.non-literal-import
+Count: 119
+Description: Untrusted user input in `importlib.import_module()` function allows an attacker to load arbitrary code. Avoid dynamic values in `importlib.import_module()` or use a whitelist to prevent running untrusted code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.eval-detected
+Count: 117
+Description: Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.use-defused-xml
+Count: 95
+Description: The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and "XML bombs" can cause denial of service.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.exec-detected
+Count: 87
+Description: Detected the use of exec(). exec() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.detect-insecure-websocket
+Count: 81
+Description: Insecure WebSocket Detected. WebSocket Secure (wss) should be used for all WebSocket connections.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop
+Count: 78
+Description: Possibility of prototype polluting function detected. By adding or modifying attributes of an object prototype, it is possible to create attributes that exist on every object, or replace critical attributes with malicious ones. This can be problematic if the software depends on existence or non-existence of certain attributes, or uses pre-defined attributes of object prototype (such as hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object prototype, using an object without prototypes (via Object.create(null) ), blocking modifications of attributes that resolve to object prototype, using Map instead of object.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.insecure-hash-algorithm-md5
+Count: 77
+Description: Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.github-actions.security.run-shell-injection
+Count: 69
+Description: Using variable interpolation `${{...}}` with `github` context data in a `run:` step could allow an attacker to inject their own code into the runner. This would allow them to steal secrets and code. `github` context data can have arbitrary user input and should be treated as untrusted. Instead, use an intermediate environment variable with `env:` to store the data and use the environment variable in the `run:` script. Be sure to use double-quotes the environment variable, like this: "$ENVVAR".
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-redos
+Count: 68
+Description: Detected the use of a regular expression `^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$` which appears to be vulnerable to a Regular expression Denial-of-Service (ReDoS). For this reason, it is recommended to review the regex and ensure it is not vulnerable to catastrophic backtracking, and if possible use a library which offers default safety against ReDoS vulnerabilities.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.dangerous-globals-use
+Count: 66
+Description: Found non static data as an index to 'globals()'. This is extremely dangerous because it allows an attacker to execute arbitrary code on the system. Refactor your code not to use 'globals()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.spawn-shell-true
+Count: 64
+Description: Found '$SPAWN' with '{shell: true}'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use '{shell: false}' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.c.lang.security.insecure-use-memset
+Count: 61
+Description: When handling sensitive information in a buffer, it's important to ensure  that the data is securely erased before the buffer is deleted or reused.  While `memset()` is commonly used for this purpose, it can leave sensitive  information behind due to compiler optimizations or other factors.  To avoid this potential vulnerability, it's recommended to use the  `memset_s()` function instead. `memset_s()` is a standardized function  that securely overwrites the memory with a specified value, making it more  difficult for an attacker to recover any sensitive data that was stored in  the buffer. By using `memset_s()` instead of `memset()`, you can help to  ensure that your application is more secure and less vulnerable to exploits  that rely on residual data in memory.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.requests.request-with-http
+Count: 60
+Description: Detected a request using 'http://'. This request will be unencrypted, and attackers could listen into traffic on the network and be able to obtain sensitive information. Use 'https://' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.jquery.security.audit.jquery-insecure-selector
+Count: 60
+Description: User controlled data in a `$(...)` is an anti-pattern that can lead to XSS vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.run-as-non-root-container-level-missing-security-context
+Count: 57
+Description: When running containers in Kubernetes, it's important to ensure that they are properly secured to prevent privilege escalation attacks. One potential vulnerability is when a container is allowed to run applications as the root user, which could allow an attacker to gain access to sensitive resources. To mitigate this risk, it's recommended to add a `securityContext` to the container, with the parameter `runAsNonRoot` set to `true`. This will ensure that the container runs as a non-root user, limiting the damage that could be caused by any potential attacks. By adding a `securityContext` to the container in your Kubernetes pod, you can help to ensure that your containerized applications are more secure and less vulnerable to privilege escalation attacks.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dynamic-urllib-use-detected
+Count: 55
+Description: Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-asyncio-create-exec-audit
+Count: 54
+Description: Detected 'create_subprocess_exec' function without a static string. If this data can be controlled by a malicious actor, it may be an instance of command injection. Audit the use of this call to ensure it is not controllable by an external resource. You may consider using 'shlex.escape()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.injection.tainted-sql-string
+Count: 47
+Description: Detected user input used to manually construct a SQL string. This is usually bad practice because manual construction could accidentally result in a SQL injection. An attacker could use a SQL injection to steal or modify contents of the database. Instead, use a parameterized query which is available by default in most database engines. Alternatively, consider using an object-relational mapper (ORM) such as Sequelize which will protect your queries.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-jwt-token
+Count: 46
+Description: JWT token detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.logging.python-logger-credential-disclosure
+Count: 46
+Description: Detected a python logger call with a potential hardcoded secret "Getting credentials from keyring for %s" being logged. This may lead to secret credentials being exposed. Make sure that the logger is not logging  sensitive information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.html.security.audit.insecure-document-method
+Count: 45
+Description: Detected the use of an inner/outerHTML assignment.  This can introduce a Cross-Site-Scripting (XSS) vulnerability if this  comes from user-provided input. If you have to use a dangerous web API,  consider using a sanitization library such as DOMPurify to sanitize  the HTML before it is assigned.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-generic-api-key
+Count: 45
+Description: Generic API Key detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.typescript.react.security.react-insecure-request
+Count: 44
+Description: Unencrypted request over HTTP detected.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.dangerous-exec-command
+Count: 43
+Description: Detected non-static command inside Command. Audit the input to 'exec.Command'. If unverified user data can reach this call site, this is a code injection vulnerability. A malicious actor can inject a malicious script to execute arbitrary code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-subprocess-use-tainted-env-args
+Count: 41
+Description: Detected subprocess function 'Popen' with user controlled data. A malicious actor could leverage this to perform command injection. You may consider using 'shlex.quote()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-asyncio-shell-audit
+Count: 41
+Description: Detected asyncio subprocess function without a static string. If this data can be controlled by a malicious actor, it may be an instance of command injection. Audit the use of this call to ensure it is not controllable by an external resource. You may consider using 'shlex.escape()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.xss.audit.direct-use-of-jinja2
+Count: 39
+Description: Detected direct use of jinja2. If not done properly, this may bypass HTML escaping which opens up the application to cross-site scripting (XSS) vulnerabilities. Prefer using the Flask method 'render_template()' and templates with a '.html' extension in order to prevent XSS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.sqli.node-mysql-sqli
+Count: 38
+Description: Detected a `mysql2/promise` SQL statement that comes from a function argument. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-system-call-audit
+Count: 37
+Description: Found dynamic content used in a system call. This is dangerous if external data can reach this function call because it allows a malicious actor to execute commands. Use the 'subprocess' module instead, which is easier to use without accidentally exposing a command injection vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.fastapi.security.wildcard-cors
+Count: 37
+Description: CORS policy allows any origin (using wildcard '*'). This is insecure and should be avoided.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.deserialization.avoid-dill
+Count: 37
+Description: Avoid using `dill`, which uses `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-check-csurf-middleware-usage
+Count: 35
+Description: A CSRF middleware was not detected in your express application. Ensure you are either using one such as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your routes with a token or cookies.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.incomplete-sanitization
+Count: 32
+Description: `pattern.replace` method will only replace the first occurrence when used with a string argument ('*'). If this method is used for escaping of dangerous data then there is a possibility for a bypass. Try to use sanitization library instead or use a Regex with a global flag.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-file-permissions
+Count: 29
+Description: These permissions `0o755` are widely permissive and grant access to more people than may be necessary. A good default is `0o644` which gives read and write access to yourself and read access to everyone else.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.hardcoded-password-default-argument
+Count: 28
+Description: Hardcoded password is used as a default argument to 'test_authentication'. This could be dangerous if a real password is not supplied.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.html.security.plaintext-http-link
+Count: 28
+Description: This link points to a plaintext HTTP URL. Prefer an encrypted HTTPS URL if possible.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.use-defused-xml-parse
+Count: 27
+Description: The native Python `xml` library is vulnerable to XML External Entity (XXE) attacks.  These attacks can leak confidential data and "XML bombs" can cause denial of service. Do not use this library to parse untrusted input. Instead  the Python documentation recommends using `defusedxml`.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.regex_dos
+Count: 25
+Description: Detected usage of re.compile with an inefficient regular expression. This can lead to regular expression denial of service, which can result in service down time. Instead, check all regexes or use safer alternatives such as pyre2.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.use-defused-xmlrpc
+Count: 24
+Description: Detected use of xmlrpc. xmlrpc is not inherently safe from vulnerabilities. Use defusedxml.xmlrpc instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.c.lang.security.insecure-use-string-copy-fn
+Count: 24
+Description: Finding triggers whenever there is a strcpy or strncpy used. This is an issue because strcpy does not affirm the size of the destination array and strncpy will not automatically NULL-terminate strings. This can lead to buffer overflows, which can cause program crashes and potentially let an attacker inject code in the program. Fix this by using strcpy_s instead (although note that strcpy_s is an optional part of the C11 standard, and so may not be available).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.marshal-usage
+Count: 24
+Description: The marshal module is not intended to be secure against erroneous or maliciously constructed data. Never unmarshal data received from an untrusted or unauthenticated source. See more details: https://docs.python.org/3/library/marshal.html?highlight=security
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.requests.security.disabled-cert-validation
+Count: 23
+Description: Certificate verification has been explicitly disabled. This permits insecure connections to insecure servers. Re-enable certification validation.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.weak-ssl-version
+Count: 23
+Description: An insecure SSL version was detected. TLS versions 1.0, 1.1, and all SSL versions are considered weak encryption and are deprecated. Use 'ssl.PROTOCOL_TLSv1_2' or higher.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-path-join-resolve-traversal
+Count: 23
+Description: Possible writing outside of the destination, make sure that the target path is nested in the intended destination
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.insecure-hash-algorithm-sha1
+Count: 22
+Description: Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.audit.avoid_app_run_with_bad_host
+Count: 21
+Description: Running flask app with host 0.0.0.0 could expose the server publicly.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.xss.import-text-template
+Count: 21
+Description: When working with web applications that involve rendering user-generated  content, it's important to properly escape any HTML content to prevent  Cross-Site Scripting (XSS) attacks. In Go, the `text/template` package does  not automatically escape HTML content, which can leave your application  vulnerable to these types of attacks. To mitigate this risk, it's  recommended to use the `html/template` package instead, which provides  built-in functionality for HTML escaping. By using `html/template` to render  your HTML content, you can help to ensure that your web application is more  secure and less susceptible to XSS vulnerabilities.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.use-defusedcsv
+Count: 20
+Description: Detected the generation of a CSV file using the built-in `csv` module. If user data is used to generate the data in this file, it is possible that an attacker could inject a formula when the CSV is imported into a spreadsheet application that runs an attacker script, which could steal data from the importing user or, at worst, install malware on the user's computer. `defusedcsv` is a drop-in replacement with the same API that will attempt to mitigate formula injection attempts. You can use `defusedcsv` instead of `csv` to safely generate CSVs.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.xss.audit.explicit-unescape-with-markup
+Count: 20
+Description: Detected explicitly unescaped content using 'Markup()'. This permits the unescaped data to include unescaped HTML which could result in cross-site scripting. Ensure this data is not externally controlled, or consider rewriting to not use 'Markup()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.html-templates.security.var-in-href
+Count: 19
+Description: Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variable for relative links (`href="/{{link}}"`). You may also consider setting the Content Security Policy (CSP) header.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.bash.curl.security.curl-pipe-bash
+Count: 18
+Description: Data is being piped into `bash` from a `curl` command. An attacker with control of the server in the `curl` command could inject malicious code into the pipe, resulting in a system compromise. Avoid piping untrusted data into `bash` or any other shell if you can. If you must do this, consider checking the SHA sum of the content returned by the server to verify its integrity.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.crypto.unencrypted-socket
+Count: 18
+Description: Detected use of a Java socket that is not encrypted. As a result, the traffic could be read by an attacker intercepting the network traffic. Use an SSLSocket created by 'SSLSocketFactory' or 'SSLServerSocketFactory' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-bcrypt-hash
+Count: 17
+Description: bcrypt hash detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.js-open-redirect-from-function
+Count: 17
+Description: The application accepts potentially user-controlled input `e` which can control the location of the current window context. This can lead two types of vulnerabilities open-redirection and Cross-Site-Scripting (XSS) with JavaScript URIs. It is recommended to validate user-controllable input before allowing it to control the redirection.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.wildcard-postmessage-configuration
+Count: 17
+Description: The target origin of the window.postMessage() API is set to "*". This could allow for information disclosure due to the possibility of any origin allowed to receive the message.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-google-gcm-service-account
+Count: 16
+Description: Google (GCM) Service account detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.httpsconnection-detected
+Count: 16
+Description: The HTTPSConnection API has changed frequently with minor releases of Python. Ensure you are using the API for your version of Python securely. For example, Python 3 versions prior to 3.4.3 will not verify SSL certificates by default. See https://docs.python.org/3/library/http.client.html#http.client.HTTPSConnection for more information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.eval-detected
+Count: 16
+Description: Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.use-of-unsafe-block
+Count: 16
+Description: Using the unsafe package in Go gives you low-level memory management and many of the strengths of the C language, but also steps around the type safety of Go and can lead to buffer overflows and possible arbitrary code execution by an attacker. Only use this package if you absolutely know what you're doing.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.browser.security.insufficient-postmessage-origin-validation
+Count: 16
+Description: No validation of origin is done by the addEventListener API. It may be possible to exploit this flaw to perform Cross Origin attacks such as Cross-Site Scripting(XSS).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.xss.no-direct-write-to-responsewriter
+Count: 15
+Description: Detected directly writing or similar in 'http.ResponseWriter.write()'. This bypasses HTML escaping that prevents cross-site scripting vulnerabilities. Instead, use the 'html/template' package and render data using 'template.Execute()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.net.use-tls
+Count: 15
+Description: Found an HTTP server without TLS. Use 'http.ListenAndServeTLS' instead. See https://golang.org/pkg/net/http/#ListenAndServeTLS for more information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.chrome-remote-interface.security.audit.chrome-remote-interface-compilescript-injection
+Count: 15
+Description: If unverified user data can reach the `compileScript` method it can result in Server-Side Request Forgery vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.detect-non-literal-require
+Count: 15
+Description: Detected the use of require(variable). Calling require with a non-literal argument might allow an attacker to load and run arbitrary code, or access arbitrary files.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.php.lang.security.exec-use
+Count: 15
+Description: Executing non-constant commands. This can lead to command injection.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-asyncio-create-exec-tainted-env-args
+Count: 14
+Description: Detected 'create_subprocess_exec' function with user controlled data. You may consider using 'shlex.escape()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.crypto.missing-ssl-minversion
+Count: 14
+Description: `MinVersion` is missing from this TLS configuration.  By default, TLS 1.2 is currently used as the minimum when acting as a client, and TLS 1.0 when acting as a server. General purpose web applications should default to TLS 1.3 with all other protocols disabled.  Only where it is known that a web server must support legacy clients with unsupported an insecure browsers (such as Internet Explorer 10), it may be necessary to enable TLS 1.0 to provide support. Add `MinVersion: tls.VersionTLS13' to the TLS configuration to bump the minimum version to TLS 1.3.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.xss.no-fprintf-to-responsewriter
+Count: 14
+Description: Detected 'Fprintf' or similar writing to 'http.ResponseWriter'. This bypasses HTML escaping that prevents cross-site scripting vulnerabilities. Instead, use the 'html/template' package to render data to users.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.jquery.security.audit.jquery-insecure-method
+Count: 14
+Description: User controlled data in a jQuery's `.append(...)` is an anti-pattern that can lead to XSS vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.php.lang.security.unlink-use
+Count: 14
+Description: Using user input when deleting files with `unlink()` is potentially dangerous. A malicious actor could use this to modify or access files they have no right to.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.nginx.security.request-host-used
+Count: 13
+Description: '$http_host' and '$host' variables may contain a malicious value from attacker controlled 'Host' request header. Use an explicitly configured host value or a allow list for validation.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.audit.avoid-query-set-extra
+Count: 12
+Description: QuerySet.extra' does not provide safeguards against SQL injection and requires very careful use. SQL injection can lead to critical data being stolen by attackers. Instead of using '.extra', use the Django ORM and parameterized queries such as `People.objects.get(name='Bob')`.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.sqlalchemy.security.audit.avoid-sqlalchemy-text
+Count: 12
+Description: sqlalchemy.text passes the constructed SQL statement to the database mostly unchanged. This means that the usual SQL injection protections are not applied and this function is vulnerable to SQL injection if user input can reach here. Use normal SQLAlchemy operators (such as or_, and_, etc.) to construct SQL.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.deserialization.avoid-cPickle
+Count: 12
+Description: Avoid using `cPickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.jsonwebtoken.security.hardcoded-jwt-secret
+Count: 12
+Description: A hard-coded credential was detected. It is not recommended to store credentials in source-code, as this risks secrets being leaked and used by either an internal or external malicious adversary. It is recommended to use environment variables to securely provide credentials or retrieve credentials from a secure vault or HSM (Hardware Security Module).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-google-api-key
+Count: 12
+Description: Google API Key Detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.secret-in-build-arg
+Count: 11
+Description: Docker build time arguments are not suited for secrets, because the argument values are saved with the image. Running `docker image history` on the image will show information on how the image was built, including arguments. If these contain plain text secrets, anyone with access to the docker image can access those secrets and exploit them.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.xss.direct-response-write
+Count: 11
+Description: Detected directly writing to a Response object from user-defined input. This bypasses any HTML escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use 'resp.render()' to render safely escaped HTML.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.crypto.math-random-used
+Count: 10
+Description: Do not use `math/rand`. Use `crypto/rand` instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.bash.lang.security.ifs-tampering
+Count: 10
+Description: The special variable IFS affects how splitting takes place when expanding unquoted variables. Don't set it globally. Prefer a dedicated utility such as 'cut' or 'awk' if you need to split input data. If you must use 'read', set IFS locally using e.g. 'IFS="," read -a my_array'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.writable-filesystem-container
+Count: 10
+Description: Container install-uaa is running with a writable root filesystem. This may allow malicious applications to download and run additional payloads, or modify container files. If an application inside a container has to save something temporarily consider using a tmpfs. Add 'readOnlyRootFilesystem: true' to this container to prevent this.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.c.lang.security.insecure-use-strcat-fn
+Count: 10
+Description: Finding triggers whenever there is a strcat or strncat used. This is an issue because strcat or strncat can lead to buffer overflow vulns. Fix this by using strcat_s instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.ssl.no-set-ciphers
+Count: 10
+Description: The 'ssl' module disables insecure cipher suites by default. Therefore, use of 'set_ciphers()' should only be used when you have very specialized requirements. Otherwise, you risk lowering the security of the SSL channel.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-annotations-usage
+Count: 10
+Description: Annotations passed to `typing.get_type_hints` are evaluated in `globals` and `locals` namespaces. Make sure that no arbitrary value can be written as the annotation and passed to `typing.get_type_hints` function.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.django-no-csrf-token
+Count: 10
+Description: Manually-created forms in django templates should specify a csrf_token to prevent CSRF attacks.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.allow-privilege-escalation-no-securitycontext
+Count: 9
+Description: In Kubernetes, each pod runs in its own isolated environment with its own set of security policies. However, certain container images may contain `setuid` or `setgid` binaries that could allow an attacker to perform privilege escalation and gain access to sensitive resources. To mitigate this risk, it's recommended to add a `securityContext` to the container in the pod, with the parameter `allowPrivilegeEscalation` set to `false`. This will prevent the container from running any privileged processes and limit the impact of any potential attacks. By adding a `securityContext` to your Kubernetes pod, you can help to ensure that your containerized applications are more secure and less vulnerable to privilege escalation attacks.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.audit.debug-enabled
+Count: 9
+Description: Detected Flask app with debug=True. Do not deploy to production with this flag enabled as it will leak sensitive information. Instead, consider using Flask configuration variables or setting 'debug' using system environment variables.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.run-as-non-root
+Count: 8
+Description: When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.jinja2.security.audit.missing-autoescape-disabled
+Count: 8
+Description: Detected a Jinja2 environment without autoescaping. Jinja2 does not autoescape by default. This is dangerous if you are rendering to a browser because this allows for cross-site scripting (XSS) attacks. If you are in a web context, enable autoescaping by setting 'autoescape=True.' You may also consider using 'jinja2.select_autoescape()' to only enable automatic escaping for certain file extensions.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.unknown-value-with-script-tag
+Count: 8
+Description: Cannot determine what 'blahJsonPath' is and it is used with a '<script>' tag. This could be susceptible to cross-site scripting (XSS). Ensure 'blahJsonPath' is not externally controlled, or sanitize this data.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.sqli.node-mssql-sqli
+Count: 8
+Description: Detected string concatenation with a non-literal variable in a `mssql` JS SQL statement. This could lead to SQL injection if the variable is user-controlled and not properly sanitized. In order to prevent SQL injection, use parameterized queries or prepared statements instead. You can use parameterized statements like so: `request.input('USER_ID', mssql.Int, id);`
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.ajv.security.audit.ajv-allerrors-true
+Count: 7
+Description: By setting `allErrors: true` in `Ajv` library, all error objects will be allocated without limit. This allows the attacker to produce a huge number of errors which can lead to denial of service. Do not use `allErrors: true` in production.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.docker-compose.security.exposing-docker-socket-volume
+Count: 7
+Description: Exposing host's Docker socket to containers via a volume. The owner of this socket is root. Giving someone access to it is equivalent to giving unrestricted root access to your host. Remove 'docker.sock' from volumes to prevent this.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.prototype-pollution.prototype-pollution-assignment
+Count: 7
+Description: Possibility of prototype polluting assignment detected. By adding or modifying attributes of an object prototype, it is possible to create attributes that exist on every object, or replace critical attributes with malicious ones. This can be problematic if the software depends on existence or non-existence of certain attributes, or uses pre-defined attributes of object prototype (such as hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object prototype, using an object without prototypes (via Object.create(null) ), blocking modifications of attributes that resolve to object prototype, using Map instead of object.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.node-crypto.security.gcm-no-tag-length
+Count: 7
+Description: The call to 'createDecipheriv' with the Galois Counter Mode (GCM) mode of operation is missing an expected authentication tag length. If the expected authentication tag length is not specified or otherwise checked, the application might be tricked into verifying a shorter-than-expected authentication tag. This can be abused by an attacker to spoof ciphertexts or recover the implicit authentication key of GCM, allowing arbitrary forgeries.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.injection.raw-html-format
+Count: 7
+Description: User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.insecure-object-assign
+Count: 6
+Description: Depending on the context, user control data in `Object.assign` can cause web response to include data that it should not have or can lead to a mass assignment vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.cors-misconfiguration
+Count: 6
+Description: By letting user input control CORS parameters, there is a risk that software does not properly verify that the source of data or communication is valid. Use literal values for CORS settings.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.net.cookie-missing-secure
+Count: 6
+Description: A session cookie was detected without setting the 'Secure' flag. The 'secure' flag for cookies prevents the client from transmitting the cookie over insecure channels such as HTTP. Set the 'Secure' flag by setting 'Secure' to 'true' in the Options struct.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-generic-secret
+Count: 6
+Description: Generic Secret detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.path-traversal.path-traversal-open
+Count: 6
+Description: Found request data in a call to 'open'. Ensure the request data is validated or sanitized, otherwise it could result in path traversal attacks and therefore sensitive data being leaked. To mitigate, consider using os.path.abspath or os.path.realpath or the pathlib library.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-cloudwatch-log-group-unencrypted
+Count: 6
+Description: By default, AWS CloudWatch Log Group is encrypted using AWS-managed keys. However, for added security, it's recommended to configure your own AWS KMS encryption key to protect your log group in CloudWatch. You can either create a new aws_kms_key resource or use the ARN of an existing key in your AWS account to do so.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.xss.audit.template-unescaped-with-safe
+Count: 6
+Description: Detected a segment of a Flask template where autoescaping is explicitly disabled with '| safe' filter. This allows rendering of raw HTML in this segment. Ensure no user data is rendered here, otherwise this is a cross-site scripting (XSS) vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-private-key
+Count: 6
+Description: Private Key detected. This is a sensitive credential and should not be hardcoded here. Instead, store this in a separate, private file.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-google-cloud-api-key
+Count: 6
+Description: Google Cloud API Key detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-system-call-tainted-env-args
+Count: 5
+Description: Found user-controlled data used in a system call. This could allow a malicious actor to execute commands. Use the 'subprocess' module instead, which is easier to use without accidentally exposing a command injection vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.typescript.react.security.audit.react-dangerouslysetinnerhtml
+Count: 5
+Description: Detection of dangerouslySetInnerHTML from non-constant definition. This can inadvertently expose users to cross-site scripting (XSS) attacks if this comes from user-provided input. If you have to use dangerouslySetInnerHTML, consider using a sanitization library such as DOMPurify to sanitize your HTML.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-google-oauth-url
+Count: 5
+Description: Google OAuth url detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.spring.security.audit.spring-actuator-fully-enabled-yaml
+Count: 5
+Description: Spring Boot Actuator is fully enabled. This exposes sensitive endpoints such as /actuator/env, /actuator/logfile, /actuator/heapdump and others. Unless you have Spring Security enabled or another means to protect these endpoints, this functionality is available without authentication, causing a severe security risk.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.secrets-in-config-file
+Count: 5
+Description: Secrets (eyJhdXRocyI6eyJsb2NhbHJlZ2lzdHJ5LWRvY2tlci1yZWdpc3RyeS5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsOjMwMDUwIjp7InVzZXJuYW1lIjoidXNlciIsInBhc3N3b3JkIjoicGFzc3dvcmQiLCJhdXRoIjoiZFhObGNqcHdZWE56ZDI5eVpBPT0ifX19) should not be stored in infrastructure as code files. Use an alternative such as Bitnami Sealed Secrets or KSOPS to encrypt Kubernetes Secrets. 
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-network-acl-allows-all-ports
+Count: 5
+Description: Ingress and/or egress is allowed for all ports in the network ACL rule. Ensure access to specific required ports is allowed, and nothing else.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.xss.mustache.var-in-script-tag
+Count: 5
+Description: Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScript. If you need this data on the rendered page, consider placing it in the HTML portion (outside of a script tag). Alternatively, use a JavaScript-specific encoder, such as the one available in OWASP ESAPI.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.github-actions.security.pull-request-target-code-checkout
+Count: 5
+Description: This GitHub Actions workflow file uses `pull_request_target` and checks out code from the incoming pull request. When using `pull_request_target`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.typescript.react.security.audit.react-href-var
+Count: 5
+Description: Detected a variable used in an anchor tag with the 'href' attribute. A malicious actor may be able to input the 'javascript:' URI, which could cause cross-site scripting (XSS). It is recommended to disallow 'javascript:' URIs within your application.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.audit.xss.html-magic-method
+Count: 5
+Description: The `__html__` method indicates to the Django template engine that the value is 'safe' for rendering. This means that normal HTML escaping will not be applied to the return value. This exposes your application to cross-site scripting (XSS) vulnerabilities. If you need to render raw HTML, consider instead using `mark_safe()` which more clearly marks the intent to render raw HTML than a class with a magic method.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.command-injection-process-builder
+Count: 5
+Description: A formatted or concatenated string was detected as input to a ProcessBuilder call. This is dangerous if a variable is controlled by user input and could result in a command injection. Ensure your variables are not controlled by users or sufficiently sanitized.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.mako-templates-detected
+Count: 5
+Description: Mako templates do not provide a global HTML escaping mechanism. This means you must escape all sensitive data in your templates using '| u' for URL escaping or '| h' for HTML escaping. If you are using Mako to serve web content, consider using a system such as Jinja2 which enables global escaping.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.pycryptodome.security.insecure-cipher-algorithm-des
+Count: 5
+Description: Detected DES cipher or Triple DES algorithm which is considered insecure. This algorithm is not cryptographically secure and can be reversed easily. Use a secure symmetric cipher from the cryptodome package instead. Use secure stream ciphers such as ChaCha20, XChaCha20 and Salsa20, or a block cipher such as AES with a block size of 128 bits. When using a block cipher, use a modern mode of operation that also provides authentication, such as GCM.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.database.string-formatted-query
+Count: 4
+Description: String-formatted SQL query detected. This could lead to SQL injection if the string is not sanitized properly. Audit this call to ensure the SQL is not manipulable by external data.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.ssrf.ssrf-injection-urllib
+Count: 4
+Description: Data from request object is passed to a new server-side request. This could lead to a server-side request forgery (SSRF), which could result in attackers gaining access to private organization data. To mitigate, ensure that schemes and hosts are validated against an allowlist, do not forward the response to the user, and ensure proper authentication and transport-layer security in the proxied request.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.insecure-uuid-version
+Count: 4
+Description: Using UUID version 1 for UUID generation can lead to predictable UUIDs based on system information (e.g., MAC address, timestamp). This may lead to security risks such as the sandwich attack. Consider using `uuid.uuid4()` instead for better randomness and security.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-ec2-security-group-allows-public-ingress
+Count: 4
+Description: The security group rule allows ingress from public internet. Opening up ports to the public internet is potentially dangerous. You should restrict access to IP addresses or ranges that explicitly require it where possible. Set a more restrictive CIDR range.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.shared-url-struct-mutation
+Count: 4
+Description: Shared URL struct may have been accidentally mutated. Ensure that this behavior is intended.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.audit.directly-returned-format-string
+Count: 4
+Description: Detected Flask route directly returning a formatted string. This is subject to cross-site scripting if user input can reach the string. Consider using the template engine instead and rendering pages with 'render_template()'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.deserialization.avoid-shelve
+Count: 4
+Description: Avoid using `shelve`, which uses `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.xss.no-interpolation-in-tag
+Count: 4
+Description: Detected template variable interpolation in an HTML tag. This is potentially vulnerable to cross-site scripting (XSS) attacks because a malicious actor has control over HTML but without the need to use escaped characters. Use explicit tags instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.open-redirect
+Count: 4
+Description: Data from request is passed to redirect(). This is an open redirect and could be exploited. Consider using 'url_for()' to generate links to known locations. If you must use a URL to unknown pages, consider using 'urlparse()' or similar and checking if the 'netloc' property is the same as your site's host name. See the references for more information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.pycryptodome.security.insecure-cipher-algorithm-rc4
+Count: 4
+Description: Detected ARC4 cipher algorithm which is considered insecure. This algorithm is not cryptographically secure and can be reversed easily. Use secure stream ciphers such as ChaCha20, XChaCha20 and Salsa20, or a block cipher such as AES with a block size of 128 bits. When using a block cipher, use a modern mode of operation that also provides authentication, such as GCM.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.dockerfile.security.last-user-is-root
+Count: 3
+Description: The last user in the container is 'root'. This is a security hazard because if an attacker gains control of the container they will have root access. Switch back to another user after running commands as 'root'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.express-data-exfiltration
+Count: 3
+Description: Depending on the context, user control data in `Object.assign` can cause web response to include data that it should not have or can lead to a mass assignment vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.jwt.security.unverified-jwt-decode
+Count: 3
+Description: Detected JWT token decoded with 'verify=False'. This bypasses any integrity checks for the token which means the token could be tampered with by malicious actors. Ensure that the JWT token is verified.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-aws-access-key-id-value
+Count: 3
+Description: AWS Access Key ID Value detected. This is a sensitive credential and should not be hardcoded here. Instead, read this value from an environment variable or keep it in a separate, private file.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.requests.request-session-with-http
+Count: 3
+Description: Detected a request using 'http://'. This request will be unencrypted. Use 'https://' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.ssl-wrap-socket-is-deprecated
+Count: 3
+Description: 'ssl.wrap_socket()' is deprecated. This function creates an insecure socket without server name indication or hostname matching. Instead, create an SSL context using 'ssl.SSLContext()' and use that to wrap a socket.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-network-acl-allows-public-ingress
+Count: 3
+Description: The network ACL rule allows ingress from public internet. Opening up ACLs to the public internet is potentially dangerous. You should restrict access to IP addresses or ranges that explicitly require it where possible. Set a more restrictive CIDR range.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.nginx.security.possible-nginx-h2c-smuggling
+Count: 3
+Description: Conditions for Nginx H2C smuggling identified. H2C smuggling allows upgrading HTTP/1.1 connections to lesser-known HTTP/2 over cleartext (h2c) connections which can allow a bypass of reverse proxy access controls, and lead to long-lived, unrestricted HTTP traffic directly to back-end servers. To mitigate: WebSocket support required: Allow only the value websocket for HTTP/1.1 upgrade headers (e.g., Upgrade: websocket). WebSocket support not required: Do not forward Upgrade headers.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-google-oauth-access-token
+Count: 3
+Description: Google OAuth Access Token detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-os-exec-audit
+Count: 3
+Description: Found dynamic content when spawning a process. This is dangerous if external data can reach this function call because it allows a malicious actor to execute commands. Ensure no external data reaches here.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-mailgun-api-key
+Count: 3
+Description: Mailgun API Key detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.docker-compose.security.privileged-service
+Count: 3
+Description: Service 'wake-word' is running in privileged mode. This grants the container the equivalent of root capabilities on the host machine. This can lead to container escapes, privilege escalation, and other security concerns. Remove the 'privileged' key to disable this capability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.jwt-go.security.audit.jwt-go-parse-unverified
+Count: 3
+Description: Detected the decoding of a JWT token without a verify step. Don't use `ParseUnverified` unless you know what you're doing This method parses the token but doesn't validate the signature. It's only ever useful in cases where you know the signature is valid (because it has been checked previously in the stack) and you want to extract values from it.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.csharp.lang.security.filesystem.unsafe-path-combine
+Count: 3
+Description: String argument componentName is used to read or write data from a file via Path.Combine without direct sanitization via Path.GetFileName. If the path is user-supplied data this can lead to path traversal.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.telnetlib
+Count: 3
+Description: Telnet does not encrypt communications. Use SSH instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.net.cookie-missing-httponly
+Count: 3
+Description: A session cookie was detected without setting the 'HttpOnly' flag. The 'HttpOnly' flag for cookies instructs the browser to forbid client-side scripts from reading the cookie which mitigates XSS attacks. Set the 'HttpOnly' flag by setting 'HttpOnly' to 'true' in the Cookie.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.potential-dos-via-decompression-bomb
+Count: 3
+Description: Detected a possible denial-of-service via a zip bomb attack. By limiting the max bytes read, you can mitigate this attack. `io.CopyN()` can specify a size. 
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.sqli.jdbc-sqli
+Count: 3
+Description: Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.ruby.lang.security.dangerous-subshell
+Count: 3
+Description: Detected non-static command inside `...`. If unverified user data can reach this call site, this is a code injection vulnerability. A malicious actor can inject a malicious script to execute arbitrary code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.remote-property-injection
+Count: 2
+Description: Bracket object notation with user input is present, this might allow an attacker to access all properties of the object and even it's prototype. Use literal values for object properties.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.crypto.use-of-md5
+Count: 2
+Description: Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.ruby.lang.security.ruby-eval
+Count: 2
+Description: Use of eval with user-controllable input detected. This can lead  to attackers running arbitrary code. Ensure external data does not  reach here, otherwise this is a security vulnerability. Consider  other ways to do this without eval.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.crypto.avoid-ssh-insecure-ignore-host-key
+Count: 2
+Description: Disabled host key verification detected. This allows man-in-the-middle attacks. Use the 'golang.org/x/crypto/ssh/knownhosts' package to do host key verification. See https://skarlso.github.io/2019/02/17/go-ssh-with-host-key-verification/ to learn more about the problem and how to fix it.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.openapi.security.api-key-in-query-parameter
+Count: 2
+Description: The api_key security scheme passes an API key in a query parameter. API keys should not be passed as query parameters in security schemes.  Pass the API key in the header or body. If using a query parameter is necessary, ensure that the API key is tightly scoped and short lived.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.sqli.asyncpg-sqli
+Count: 2
+Description: Detected string concatenation with a non-literal variable in a asyncpg Python SQL statement. This could lead to SQL injection if the variable is user-controlled and not properly sanitized. In order to prevent SQL injection, use parameterized queries or prepared statements instead. You can create parameterized queries like so: 'conn.fetch("SELECT $1 FROM table", value)'. You can also create prepared statements with 'Connection.prepare': 'stmt = conn.prepare("SELECT $1 FROM table"); await stmt.fetch(user_value)'
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.solidity.security.arbitrary-send-erc20
+Count: 2
+Description: msg.sender is not being used when calling erc20.transferFrom. Example - Alice approves this contract to spend her ERC20 tokens. Bob can call function 'a' and specify Alice's address as the from parameter in transferFrom, allowing him to transfer Alice's tokens to himself.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-spawn-process-audit
+Count: 2
+Description: Found dynamic content when spawning a process. This is dangerous if external data can reach this function call because it allows a malicious actor to execute commands. Ensure no external data reaches here.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.audit.xss.make-response-with-unknown-content
+Count: 2
+Description: Be careful with `flask.make_response()`. If this response is rendered onto a webpage, this could create a cross-site scripting (XSS) vulnerability. `flask.make_response()` will not autoescape HTML. If you are rendering HTML, write your HTML in a template file and use `flask.render_template()` which will take care of escaping. If you are returning data from an API, consider using `flask.jsonify()`.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.tainted-url-host
+Count: 2
+Description: User data flows into the host portion of this manually-constructed URL. This could allow an attacker to send data to their own server, potentially exposing sensitive data such as cookies or authorization information sent with this request. They could also probe internal servers or other resources that the server running this code can access. (This is called server-side request forgery, or SSRF.) Do not allow arbitrary hosts. Instead, create an allowlist for approved hosts, or hardcode the correct host.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.boto3.security.hardcoded-token
+Count: 2
+Description: A hard-coded credential was detected. It is not recommended to store credentials in source-code, as this risks secrets being leaked and used by either an internal or external malicious adversary. It is recommended to use environment variables to securely provide credentials or retrieve credentials from a secure vault or HSM (Hardware Security Module).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-username-and-password-in-uri
+Count: 2
+Description: Username and password in URI detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.dangerous-spawn-shell
+Count: 2
+Description: Detected non-literal calls to spawn(). This could lead to a command injection vulnerability.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.dangerous-os-exec-tainted-env-args
+Count: 2
+Description: Found user controlled content when spawning a process. This is dangerous because it allows a malicious actor to execute commands.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.urllib.insecure-urlretrieve
+Count: 2
+Description: Detected 'urllib.urlretrieve()' using 'http://'. This request will not be encrypted. Use 'https://' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.github-actions.security.audit.unsafe-add-mask-workflow-command
+Count: 2
+Description: GitHub Actions provides the **'add-mask'** workflow command to mask sensitive data in the workflow logs. If **'add-mask'** is not used or if workflow commands have been stopped, sensitive data can leaked into the workflow logs. An attacker could simply copy the workflow to another branch and add the following payload `echo "::stop-commands::$stopMarker"` to stop workflow command processing ([described here](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#stopping-and-starting-workflow-commands)), which will cause the secret token to be exposed despite the **'add-mask'** usage. For more information, please refer to the [GitHub documentation](https://github.com/actions/toolkit/blob/main/docs/commands.md#register-a-secret).
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.xss.mustache.escape-function-overwrite
+Count: 2
+Description: The Mustache escape function is being overwritten. This could bypass HTML escaping safety measures built into the rendering engine, exposing your application to cross-site scripting (XSS) vulnerabilities. If you need unescaped HTML, use the triple brace operator in your template: '{{{ ... }}}'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.res-render-injection
+Count: 2
+Description: User controllable data `template` enters `context.render(...)` this can lead to the loading of other HTML/templating pages that they may not be authorized to render. An attacker may attempt to use directory traversal techniques e.g. `../folder/index` to access other HTML pages on the file system. Where possible, do not allow users to define what should be  loaded in context.render or use an allow list for the existing application.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.formatted-sql-string
+Count: 2
+Description: Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.pycryptodome.security.insecure-hash-algorithm-md5
+Count: 2
+Description: Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature.  Use a modern hash algorithm from the SHA-2, SHA-3, or BLAKE2 family instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.lang.security.iam.no-iam-creds-exposure
+Count: 2
+Description: Ensure IAM policies don't allow credentials exposure. Credentials exposure actions return credentials as part of the API response, and can possibly lead to leaking important credentials. Instead, use another action that doesn't return sensitive data as part of the API response.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.sqli.psycopg-sqli
+Count: 2
+Description: Detected string concatenation with a non-literal variable in a psycopg2 Python SQL statement. This could lead to SQL injection if the variable is user-controlled and not properly sanitized. In order to prevent SQL injection, use parameterized queries or prepared statements instead. You can use prepared statements by creating a 'sql.SQL' string. You can also use the pyformat binding style to create parameterized queries. For example: 'cur.execute(SELECT * FROM table WHERE name=%s, user_input)'
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.injection.open-redirect
+Count: 1
+Description: An HTTP redirect was found to be crafted from user-input `r`. This can lead to open redirect vulnerabilities, potentially allowing attackers to redirect users to malicious web sites. It is recommend where possible to not allow user-input to craft the redirect URL. When user-input is necessary to craft the request, it is recommended to follow OWASP best practices to restrict the URL to domains in an allowlist.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.cryptography.security.insecure-hash-algorithm-md5
+Count: 1
+Description: Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.dangerous-command-write
+Count: 1
+Description: Detected non-static command inside Write. Audit the input to 'stdin.Write'. If unverified user data can reach this call site, this is a code injection vulnerability. A malicious actor can inject a malicious script to execute arbitrary code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.urllib.insecure-request-object
+Count: 1
+Description: Detected a 'urllib.request.Request()' object using an insecure transport protocol, 'http://'. This connection will not be encrypted. Use 'https://' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.xss.jsf.autoescape-disabled
+Count: 1
+Description: Detected an element with disabled HTML escaping. If external data can reach this, this is a cross-site scripting (XSS) vulnerability. Ensure no external data can reach here, or remove 'escape=false' from this element.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.sql.sql-injection-db-cursor-execute
+Count: 1
+Description: User-controlled data from a request is passed to 'execute()'. This could lead to a SQL injection and therefore protected information could be leaked. Instead, use django's QuerySets, which are built with query parameterization and therefore not vulnerable to sql injection. For example, you could use `Entry.objects.filter(date=2006)`.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.tainted-sql-string
+Count: 1
+Description: Detected user input used to manually construct a SQL string. This is usually bad practice because manual construction could accidentally result in a SQL injection. An attacker could use a SQL injection to steal or modify contents of the database. Instead, use a parameterized query which is available by default in most database engines. Alternatively, consider using the Django object-relational mappers (ORM) instead of raw SQL queries.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.xss.pug.var-in-href
+Count: 1
+Description: Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using a relative URL, start with a literal forward slash and concatenate the URL, like this: a(href='/'+url). You may also consider setting the Content Security Policy (CSP) header.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.php.lang.security.weak-crypto
+Count: 1
+Description: Detected usage of weak crypto function. Consider using stronger alternatives.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.c.lang.security.insecure-use-printf-fn
+Count: 1
+Description: Avoid using user-controlled format strings passed into 'sprintf', 'printf' and 'vsprintf'. These functions put you at risk of buffer overflow vulnerabilities through the use of format string exploits. Instead, use 'snprintf' and 'vsnprintf'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-cloudtrail-encrypted-with-cmk
+Count: 1
+Description: Ensure CloudTrail logs are encrypted at rest using KMS CMKs. CMKs gives you control over the encryption key in terms of access and rotation.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-ec2-launch-template-metadata-service-v1-enabled
+Count: 1
+Description: The EC2 launch template has Instance Metadata Service Version 1 (IMDSv1) enabled. IMDSv2 introduced session authentication tokens which improve security when talking to IMDS. You should either disable IMDS or require the use of IMDSv2.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-db-instance-no-logging
+Count: 1
+Description: Database instance has no logging. Missing logs can cause missing important event information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-elb-access-logs-not-enabled
+Count: 1
+Description: ELB has no logging. Missing logs can cause missing important event information.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.insecure-load-balancer-tls-version
+Count: 1
+Description: Detected an AWS load balancer with an insecure TLS version. TLS versions less than 1.2 are considered insecure because they can be broken. To fix this, set your `ssl_policy` to `"ELBSecurityPolicy-TLS13-1-2-2021-06"`, or include a default action to redirect to HTTPS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-subnet-has-public-ip-address
+Count: 1
+Description: Resources in the AWS subnet are assigned a public IP address. Resources should not be exposed on the public internet, but should have access limited to consumers required for the function of your application. Set `map_public_ip_on_launch` to false so that resources are not publicly-accessible.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-efs-filesystem-encrypted-with-cmk
+Count: 1
+Description: Ensure EFS filesystem is encrypted at rest using KMS CMKs. CMKs gives you control over the encryption key in terms of access and rotation.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.injection.tainted-url-host
+Count: 1
+Description: User data flows into the host portion of this manually-constructed URL. This could allow an attacker to send data to their own server, potentially exposing sensitive data such as cookies or authorization information sent with this request. They could also probe internal servers or other resources that the server running this code can access. (This is called server-side request forgery, or SSRF.) Do not allow arbitrary hosts. Instead, create an allowlist for approved hosts, or hardcode the correct host.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.deserialization.avoid-pyyaml-load
+Count: 1
+Description: Detected a possible YAML deserialization vulnerability. `yaml.unsafe_load`, `yaml.Loader`, `yaml.CLoader`, and `yaml.UnsafeLoader` are all known to be unsafe methods of deserializing YAML. An attacker with control over the YAML input could create special YAML input that allows the attacker to run arbitrary Python code. This would allow the attacker to steal files, download and install malware, or otherwise take over the machine. Use `yaml.safe_load` or `yaml.SafeLoader` instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.csharp.lang.security.sqli.csharp-sqli
+Count: 1
+Description: Detected a formatted string in a SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements instead. You can obtain a PreparedStatement using 'SqlCommand' and 'SqlParameter'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.network.avoid-bind-to-all-interfaces
+Count: 1
+Description: Running `socket.bind` to 0.0.0.0, or empty string could unexpectedly expose the server publicly as it binds to all available interfaces. Consider instead getting correct address from an environment variable or configuration file.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.urllib.insecure-urlopen
+Count: 1
+Description: Detected 'urllib.urlopen()' using 'http://'. This request will not be encrypted. Use 'https://' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.audit.insecure-transport.ftplib.use-ftp-tls
+Count: 1
+Description: The 'FTP' class sends information unencrypted. Consider using the 'FTP_TLS' class instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.lang.security.unverified-ssl-context
+Count: 1
+Description: Unverified SSL context detected. This will permit insecure connections without verifying SSL certificates. Use 'ssl.create_default_context' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.lang.security.audit.sqli.node-postgres-sqli
+Count: 1
+Description: Detected string concatenation with a non-literal variable in a node-postgres JS SQL statement. This could lead to SQL injection if the variable is user-controlled and not properly sanitized. In order to prevent SQL injection, use parameterized queries or prepared statements instead. You can use parameterized statements like so: `client.query('SELECT $1 from table', [userinput])`
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.openapi.security.use-of-basic-authentication
+Count: 1
+Description: Basic authentication is considered weak and should be avoided.  Use a different authentication scheme, such of OAuth2, OpenID Connect, or mTLS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.puppeteer.security.audit.puppeteer-setcontent-injection
+Count: 1
+Description: If unverified user data can reach the `setContent` method it can result in Server-Side Request Forgery vulnerabilities
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.reverseproxy-director
+Count: 1
+Description: ReverseProxy can remove headers added by Director. Consider using ReverseProxy.Rewrite instead of ReverseProxy.Director.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.flask.security.audit.avoid_hardcoded_config_SECRET_KEY
+Count: 1
+Description: Hardcoded variable `SECRET_KEY` detected. Use environment variables or config files instead
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.lang.security.ec2-imdsv1-optional
+Count: 1
+Description: AWS EC2 Instance allowing use of the IMDSv1
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.audit.crypto.use-of-sha1
+Count: 1
+Description: Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.jwt.security.jwt-python-exposed-credentials
+Count: 1
+Description: Password is exposed through JWT token payload. This is not encrypted and the password could be compromised. Do not store passwords in JWT tokens.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.shelljs.security.shelljs-exec-injection
+Count: 1
+Description: If unverified user data can reach the `exec` method it can result in Remote Code Execution
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.jinja2.security.audit.incorrect-autoescape-disabled
+Count: 1
+Description: Detected a Jinja2 environment with 'autoescaping' disabled. This is dangerous if you are rendering to a browser because this allows for cross-site scripting (XSS) attacks. If you are in a web context, enable 'autoescaping' by setting 'autoescape=True.' You may also consider using 'jinja2.select_autoescape()' to only enable automatic escaping for certain file extensions.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.jwt.security.jwt-python-hardcoded-secret
+Count: 1
+Description: Hardcoded JWT secret or private key is used. This is a Insufficiently Protected Credentials weakness: https://cwe.mitre.org/data/definitions/522.html Consider using an appropriate security mechanism to protect the credentials (e.g. keeping secrets in environment variables)
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.android.security.exported_activity
+Count: 1
+Description: The application exports an activity. Any application on the device can launch the exported activity which may compromise the integrity of your application or its data.  Ensure that any exported activities do not have privileged access to your application's control plane.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.lang.security.ecr-image-scan-on-push
+Count: 1
+Description: The ECR Repository isn't configured to scan images on push
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-ecr-image-scanning-disabled
+Count: 1
+Description: The ECR repository has image scans disabled. Repository image scans should be enabled to ensure vulnerable software can be discovered and remediated as soon as possible.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.terraform.aws.security.aws-ecr-mutable-image-tags
+Count: 1
+Description: The ECR repository allows tag mutability. Image tags could be overwritten with compromised images. ECR images should be set to IMMUTABLE to prevent code injection through image mutation. This can be done by setting `image_tag_mutability` to IMMUTABLE.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.nginx.security.dynamic-proxy-host
+Count: 1
+Description: The host for this proxy URL is dynamically determined. This can be dangerous if the host can be injected by an attacker because it may forcibly alter destination of the proxy. Consider hardcoding acceptable destinations and retrieving them with 'map' or something similar.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.nginx.security.missing-internal
+Count: 1
+Description: This location block contains a 'proxy_pass' directive but does not contain the 'internal' directive. The 'internal' directive restricts access to this location to internal requests. Without 'internal', an attacker could use your server for server-side request forgeries (SSRF). Include the 'internal' directive in this block to limit exposure.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.generic.secrets.security.detected-sonarqube-docs-api-key
+Count: 1
+Description: SonarQube Docs API Key detected
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.ruby.lang.security.dangerous-exec
+Count: 1
+Description: Detected non-static command inside system. Audit the input to 'system'. If unverified user data can reach this call site, this is a code injection vulnerability. A malicious actor can inject a malicious script to execute arbitrary code.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.go.lang.security.path-traversal-inside-zip-extraction
+Count: 1
+Description: File traversal when extracting zip archive
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.spring.security.audit.spring-actuator-dangerous-endpoints-enabled
+Count: 1
+Description: Spring Boot Actuators "health,info,metrics" are enabled. Depending on the actuators, this can pose a significant security risk. Please double-check if the actuators are needed and properly secured.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.yaml.kubernetes.security.hostnetwork-pod
+Count: 1
+Description: Pod may use the node network namespace. This gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node. Remove the 'hostNetwork' key to disable this functionality.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.lang.security.audit.cbc-padding-oracle
+Count: 1
+Description: Using CBC with PKCS5Padding is susceptible to padding oracle attacks. A malicious actor could discern the difference between plaintext with valid or invalid padding. Further, CBC mode does not include any integrity checks. Use 'AES/GCM/NoPadding' instead.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.java.spring.security.audit.spring-sqli
+Count: 1
+Description: Detected a string argument from a public method contract in a raw SQL statement. This could lead to SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using 'connection.prepareStatement'.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.xss.mustache.template-explicit-unescape
+Count: 1
+Description: Detected an explicit unescape in a Mustache template, using triple braces '{{{...}}}' or ampersand '&'. If external data can reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If you must do this, ensure no external data can reach this location.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-default-name
+Count: 1
+Description: Don’t use the default session cookie name Using the default session cookie name can open your app to attacks. The security issue posed is similar to X-Powered-By: a potential attacker can use it to fingerprint the server and target attacks accordingly.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-no-domain
+Count: 1
+Description: Default session middleware settings: `domain` not set. It indicates the domain of the cookie; use it to compare against the domain of the server in which the URL is being requested. If they match, then check the path attribute next.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-no-expires
+Count: 1
+Description: Default session middleware settings: `expires` not set. Use it to set expiration date for persistent cookies.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-no-httponly
+Count: 1
+Description: Default session middleware settings: `httpOnly` not set. It ensures the cookie is sent only over HTTP(S), not client JavaScript, helping to protect against cross-site scripting attacks.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-no-path
+Count: 1
+Description: Default session middleware settings: `path` not set. It indicates the path of the cookie; use it to compare against the request path. If this and domain match, then send the cookie in the request.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.javascript.express.security.audit.express-cookie-session-no-secure
+Count: 1
+Description: Default session middleware settings: `secure` not set. It ensures the browser only sends the cookie over HTTPS.
+--------------------------------------------------
+Rule ID: home.vboxuser.opengrep.opengrep-rules.python.django.security.injection.raw-html-format
+Count: 1
+Description: Detected user input flowing into a manually constructed HTML string. You may be accidentally bypassing secure methods of rendering HTML by manually constructing HTML and this could create a cross-site scripting vulnerability, which could let attackers steal sensitive user data. To be sure this is safe, check that the HTML is rendered safely. Otherwise, use templates (`django.shortcuts.render`) which will safely render HTML instead.
